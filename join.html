@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加入我们 | FPS Hub</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/join.css">
+</head>
+<body style="background-color: #0b0b0d;"> 
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html" style="color: inherit; text-decoration: none;">FPS HUB</a>
+        </div>
+        
+        <ul class="nav-links" style="display: flex; align-items: center; gap: 20px;">
+            <li id="userStatusWidget" style="display: flex; align-items: center; gap: 10px; padding: 5px 10px; background: rgba(255,255,255,0.05); border-radius: 20px;">
+                <span id="widgetAvatar" style="font-size: 18px; line-height: 1;">🐢</span>
+                <span id="widgetUsername" style="color: #ccc; font-size: 14px; font-weight: bold;">未登录</span>
+                <span id="widgetDot" style="width: 8px; height: 8px; background-color: #ff4b2b; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px #ff4b2b;"></span>
+            </li>
+
+            <li><a href="games.html">游戏库</a></li>
+            <li><a href="news.html">热点讯息</a></li>
+            <li><a href="match.html">组队助手</a></li>
+            
+            <li class="nav-join-container">
+                <a href="join.html" class="nav-join-btn" style="color: #ff4b2b; font-weight: bold;">👥 加入我们</a>
+                
+                <div class="nav-join-submenu">
+                    <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=jXjnaJmZs3zAfgapzyHPp2ZwPc4QVpMNlYr9Yfo%2BTB949tJ5hzfJ44ekNzn6M8ta&busi_data=eyJncm91cENvZGUiOiI3MDMzOTYwMDYiLCJ0b2tlbiI6IjlsbFM5RTBqVzRQOWlpcWo5WTJKZWQyQnJJNkxzL1hSN0FnbUQyYXUrUEw5eThXWmM2a3VFT09YQXBnSmYzNUQiLCJ1aW4iOiIzNjYxNjg2NTkifQ%3D%3D&data=ZD-B5qIyFcmCADhrLnzD6G_YA5h3e3gyh0UAQoWv2PFkTdUh4Z1ByCwwE3GEmBjM2tm8iiduB4C0uLNukjzBGw&svctype=4&tempid=h5_group_info" target="_blank" class="submenu-item qq-item">
+                        <span class="item-icon">💬</span> QQ 交流主群
+                    </a>
+                    <a href="https://t.me/fps_hub1001" target="_blank" class="submenu-item tg-item">
+                        <span class="item-icon">✈️</span> Telegram 频道
+                    </a>
+                    <a href="https://discord.gg/Z62Keahzv" target="_blank" class="submenu-item discord-item">
+                        <span class="item-icon">🎮</span> Discord 社区
+                    </a>
+                    <a href="https://kook.top/【把这里换成你的KOOK链接】" target="_blank" class="submenu-item kook-item">
+                        <span class="item-icon">🎙️</span> KOOK（未开放
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="join-page-wrapper">
+        <div class="join-header">
+            <h2>JOIN OUR COMMUNITY</h2>
+            <p>加入我们的多端社交矩阵，与数万名同好一起即时交流、开黑组队</p>
+        </div>
+
+        <div class="social-matrix-grid">
+            
+            <div class="social-card qq-card">
+                <div class="social-badge">主流交流</div>
+                <div class="social-main">
+                    <div class="social-icon">💬</div>
+                    <h3>QQ 官方群</h3>
+                    <p class="social-desc">最活跃的日常吹水、战术讨论基地，攻略资讯秒级更新。</p>
+                    <span class="member-count">🔥 4,820 人已加入</span>
+                </div>
+                <button class="join-action-btn" onclick="window.open('https://qun.qq.com/universal-share/share?ac=1&authKey=jXjnaJmZs3zAfgapzyHPp2ZwPc4QVpMNlYr9Yfo%2BTB949tJ5hzfJ44ekNzn6M8ta&busi_data=eyJncm91cENvZGUiOiI3MDMzOTYwMDYiLCJ0b2tlbiI6IjlsbFM5RTBqVzRQOWlpcWo5WTJKZWQyQnJJNkxzL1hSN0FnbUQyYXUrUEw5eThXWmM2a3VFT09YQXBnSmYzNUQiLCJ1aW4iOiIzNjYxNjg2NTkifQ%3D%3D&data=ZD-B5qIyFcmCADhrLnzD6G_YA5h3e3gyh0UAQoWv2PFkTdUh4Z1ByCwwE3GEmBjM2tm8iiduB4C0uLNukjzBGw&svctype=4&tempid=h5_group_info', '_blank')">立即一键加群</button>
+            </div>
+
+            <div class="social-card tg-card">
+                <div class="social-badge">自由无界</div>
+                <div class="social-main">
+                    <div class="social-icon">✈️</div>
+                    <h3>Telegram 频道</h3>
+                    <p class="social-desc">纯净的搬运推送与实时技术通知，不漏掉任何核心版本动态。</p>
+                    <span class="member-count">⚡ 1,250 订阅者</span>
+                </div>
+                <button class="join-action-btn" onclick="window.open('https://t.me/fps_hub1001', '_blank')">订阅电报频道</button>
+            </div>
+
+            <div class="social-card discord-card">
+                <div class="social-badge">语音开黑</div>
+                <div class="social-main">
+                    <div class="social-icon">🎮</div>
+                    <h3>Discord 社区</h3>
+                    <p class="social-desc">完美的海外多频道开黑语音，包含极其丰富的机器人交互功能。</p>
+                    <span class="member-count">🟢 320 在线</span>
+                </div>
+                <button class="join-action-btn" onclick="window.open('https://discord.gg/Z62Keahzv', '_blank')">接受邀请链接</button>
+            </div>
+
+            <div class="social-card kook-card">
+                <div class="social-badge">国内开黑</div>
+                <div class="social-main">
+                    <div class="social-icon">🎙️</div>
+                    <h3>KOOK 语音频道</h3>
+                    <p class="social-desc">国内极低延迟、高音质的游戏开黑服务器，组队开黑首选。</p>
+                    <span class="member-count"> Ready to Play</span>
+                </div>
+                <button class="join-action-btn" onclick="window.open('https://kook.top/【把这里换成你的KOOK链接】', '_blank')">进入语音服务器</button>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 FPS Hub. 为热爱而生.</p>
+    </footer>
+
+    <script src="./assets/js/main.js"></script>
+</body>
+</html>

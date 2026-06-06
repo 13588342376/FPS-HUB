@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组队助手 | FPS Hub</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/match.css">
+</head>
+<body style="background-color: #0b0b0d; color: #fff;"> 
+    <!-- 🌐 镜像导航栏，完美对齐高度 -->
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html" style="color: inherit; text-decoration: none;">FPS HUB</a>
+        </div>
+        
+        <ul class="nav-links" style="display: flex; align-items: center; gap: 20px;">
+            <li id="userStatusWidget" style="display: flex; align-items: center; gap: 10px; padding: 5px 10px; background: rgba(255,255,255,0.05); border-radius: 20px;">
+                <span id="widgetAvatar" style="font-size: 18px; line-height: 1;">🐢</span>
+                <span id="widgetUsername" style="color: #ccc; font-size: 14px; font-weight: bold;">未登录</span>
+                <span id="widgetDot" style="width: 8px; height: 8px; background-color: #ff4b2b; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px #ff4b2b;"></span>
+            </li>
+
+            <li><a href="games.html">游戏库</a></li>
+            <li><a href="news.html">热点讯息</a></li>
+            <li><a href="match.html" style="color: #ff4b2b; font-weight: bold;">组队助手</a></li>
+            
+            <li class="nav-join-container">
+                <a href="join.html" class="nav-join-btn">👥 加入我们</a>
+                <div class="nav-join-submenu">
+                    <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=jXjnaJmZs3zAfgapzyHPp2ZwPc4QVpMNlYr9Yfo%2BTB949tJ5hzfJ44ekNzn6M8ta&busi_data=eyJncm91cENvZGUiOiI3MDMzOTYwMDYiLCJ0b2tlbiI6IjlsbFM5RTBqVzRQOWlpcWo5WTJKZWQyQnJJNkxzL1hSN0FnbUQyYXUrUEw5eThXWmM2a3VFT09YQXBnSmYzNUQiLCJ1aW4iOiIzNjYxNjg2NTkifQ%3D%3D&data=ZD-B5qIyFcmCADhrLnzD6G_YA5h3e3gyh0UAQoWv2PFkTdUh4Z1ByCwwE3GEmBjM2tm8iiduB4C0uLNukjzBGw&svctype=4&tempid=h5_group_info" target="_blank" class="submenu-item qq-item">
+                        <span class="item-icon">💬</span> QQ 交流主群
+                    </a>
+                    <a href="https://t.me/fps_hub1001" target="_blank" class="submenu-item tg-item">
+                        <span class="item-icon">✈️</span> Telegram 频道
+                    </a>
+                    <a href="https://discord.gg/Z62Keahzv" target="_blank" class="submenu-item discord-item">
+                        <span class="item-icon">🎮</span> Discord 社区
+                    </a>
+                    <a href="https://kook.top/【把这里换成你的KOOK链接】" target="_blank" class="submenu-item kook-item">
+                        <span class="item-icon">🎙️</span> KOOK（未开放
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- 🎯 匹配控制中心 -->
+    <div class="match-wrapper">
+        <div class="match-panel">
+            <div class="panel-header">
+                <h2>TACTICAL MATCHMAKING</h2>
+                <p>战术终端：输入你的特工标签，异步检索最契合的战术伙伴</p>
+            </div>
+
+            <form id="matchForm" onsubmit="return false;">
+                <!-- 玩家ID输入 -->
+                <div class="form-group">
+                    <label>玩家游戏 ID (输入后方可激活匹配)</label>
+                    <input type="text" id="playerGameId" placeholder="例如：S1mple#1234 或 傲娇乌龟#555" required>
+                </div>
+
+                <!-- 游戏阵地选择 -->
+                <div class="form-group">
+                    <label>主攻战场</label>
+                    <select id="targetGame">
+                        </select>
+                </div>
+
+                <!-- 个人战术标签选择 -->
+                <div class="form-group">
+                    <label>你的战术定位 / 标签</label>
+                    <div class="tag-selector">
+                        <label class="tag-checkbox"><input type="radio" name="playerTag" value="突破手" checked><span>💥 突破手</span></label>
+                        <label class="tag-checkbox"><input type="radio" name="playerTag" value="狙击手"><span>🎯 狙击手</span></label>
+                        <label class="tag-checkbox"><input type="radio" name="playerTag" value="指挥/大脑"><span>🧠 指挥官</span></label>
+                        <label class="tag-checkbox"><input type="radio" name="playerTag" value="自由人"><span>👻 自由人</span></label>
+                    </div>
+                </div>
+
+                <button type="submit" class="start-match-btn" id="startMatchBtn">启动量子战术匹配</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 🌀 炫酷全屏匹配转圈遮罩 (默认隐藏) -->
+    <div class="match-overlay" id="matchOverlay">
+        <div class="loading-box">
+            <div class="radar-circle"></div>
+            <h3 class="loading-status" id="loadingStatusText">正在链接战术卫星...</h3>
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="progressBarFill"></div>
+            </div>
+            <p class="loading-sub">正在交叉比对全球硬核 FPS 玩家权重标签...</p>
+        </div>
+    </div>
+
+    <!-- 🎴 匹配成功弹窗结果 (默认隐藏) -->
+    <div class="result-modal" id="resultModal">
+        <div class="result-card">
+            <div class="success-badge">MATCH SUCCESSFUL</div>
+            <h3>为您寻获最佳战术拍档！</h3>
+            
+            <div class="teammate-profile">
+                <div class="teammate-avatar" id="resAvatar">👤</div>
+                <div class="teammate-info">
+                    <h4 id="resId">玩家ID加载中...</h4>
+                    <p>推荐战场：<span id="resGame" style="color: #ff4b2b;">-</span></p>
+                    <p>核心标签：<span class="res-tag" id="resTag">-</span></p>
+                </div>
+            </div>
+
+            <div class="match-stats">
+                <div class="stat-item"><h5>胜率比对</h5><p id="resWinRate">0%</p></div>
+                <div class="stat-item"><h5>契合度</h5><p style="color: #ff4b2b; font-weight: bold;">98.4%</p></div>
+                <div class="stat-item"><h5>当前状态</h5><p style="color: #4caf50;">🟢 候命中</p></div>
+            </div>
+
+            <button class="close-result-btn" id="closeResultBtn">注入终端并联系他</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 FPS Hub. 为热爱而生.</p>
+    </footer>
+
+    <script src="./assets/js/main.js"></script>
+
+    <script src="./assets/js/games-data.js"></script>
+
+    <script src="./assets/js/games.js"></script> 
+    
+    <script src="./assets/js/match.js"></script>
+
+</body>
+</html>
