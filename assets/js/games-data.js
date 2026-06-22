@@ -1,0 +1,622 @@
+// games-database.js
+// 50款全球热门FPS/TPS射击游戏本地数据库（已添加 forumUrl 和 officialUrl 字段）
+
+const GAMES_DATABASE = [
+    // === PC 端 (30款) ===
+    { 
+        id: 1, 
+        name: "反恐精英 2 (CS2)", 
+        icon: "🔫", 
+        img: "./assets/images/cs2.png", 
+        desc: "硬核竞技代名词，战术与枪法巅峰。", 
+        dev: "Valve", 
+        platform: "PC", 
+        subTag: "战术射击",
+        forumUrl: "forum.html?game=cs2",   // 保底留空，代码会处理
+        officialUrl: "https://www.counter-strike.net/cs2"
+    },
+    { 
+        id: 2, 
+        name: "无畏契约 (Valorant)", 
+        icon: "🎯",
+        img: "./assets/images/Valorant.png", 
+        desc: "技能与准星结合，开创射击新纪元。", 
+        dev: "Riot Games", 
+        platform: "PC", 
+        subTag: "英雄射击",
+        forumUrl: "forum.html?game=valorant",
+        officialUrl: "https://val.qq.com/"
+    },
+    { 
+        id: 3,
+        name: "Apex 英雄",
+        icon: "🏃", 
+        img: "./assets/images/apex.png",
+        desc: "极致身法与团队配合，快节奏大逃杀。", 
+        dev: "Respawn", 
+        platform: "PC", 
+        subTag: "大逃杀",
+        forumUrl: "forum.html?game=apex",
+        officialUrl: "https://www.ea.com/zh-tw/games/apex-legends"
+    },
+    { 
+        id: 4, 
+        name: "彩虹六号：围攻", 
+        icon: "🛡️", 
+        img: "./assets/images/rainbow6.png",
+        desc: "拆墙流硬核反恐，情报胜过枪法。", 
+        dev: "Ubisoft", 
+        platform: "PC", 
+        subTag: "战术射击",
+        forumUrl: "",
+        officialUrl: "https://www.ubisoft.com/zh-tw/game/rainbow-six/siege"
+    },
+    { 
+        id: 5, 
+        name: "守望先锋 2", 
+        icon: "🤖", 
+        img: "./assets/images/overwatch2.png",
+        desc: "英雄各显神通，团队推车百玩不厌。", 
+        dev: "Blizzard", 
+        platform: "PC", 
+subTag: "英雄射击",
+        forumUrl: "",
+        officialUrl: "https://overwatch.blizzard.com/zh-tw/"
+    },
+    { 
+        id: 6, 
+        name: "绝地求生 (PUBG)", 
+        icon: "🪂", 
+        img: "./assets/images/pubg.png",
+        desc: "大逃杀品类始祖，百人空降军事演习。", 
+        dev: "KRAFTON", 
+        platform: "PC", 
+        subTag: "大逃杀",
+        forumUrl: "",
+        officialUrl: "https://pubg.qq.com/"
+    },
+    { 
+        id: 7, 
+        name: "使命召唤：战区", 
+        icon: "💥", 
+        img: "./assets/images/warzone.png",
+        desc: "现代战争全战术空降，极致画质枪感。", 
+        dev: "Activision", 
+        platform: "PC", 
+        subTag: "大逃杀",
+        forumUrl: "",
+        officialUrl: "https://www.callofduty.com/warzone"
+    },
+    { 
+        id: 8, 
+        name: "逃离塔科夫", 
+        icon: "🎒", 
+        img: "./assets/images/tarkov.png",
+        desc: "硬核拟真撤离玩法，活着带出物资。", 
+        dev: "Battlestate", 
+        platform: "PC", 
+        subTag: "撤离生存",
+        forumUrl: "",
+        officialUrl: "https://www.escapefromtarkov.com/"
+    },
+    { 
+        id: 9, 
+        name: "暗区突围：无限", 
+        icon: "👁️", 
+        img: "./assets/images/arenabreakout.png",
+        desc: "端游级高拟真战术博弈撤离射击。", 
+        dev: "MoreFun Studios", 
+        platform: "PC", 
+        subTag: "撤离生存",
+        forumUrl: "",
+        officialUrl: "https://aqtw.qq.com/"
+    },
+    { 
+        id: 10, 
+        name: "三角洲行动", 
+        icon: "📐", 
+        img: "./assets/images/deltaforce.png",
+        desc: "经典IP回归，大战场与战术撤离。", 
+        dev: "TiMi Studio", 
+        platform: "PC", 
+        subTag: "大战场",
+        forumUrl: "",
+        officialUrl: "https://deltaforce.qq.com/"
+    },
+    { 
+        id: 11, 
+        name: "地狱潜者 2 (HD2)", 
+        icon: "🌍", 
+        img: "./assets/images/helldivers2.png",
+        desc: "为了超级地球！四人联机恶搞科幻。", 
+        dev: "Arrowhead", 
+        platform: "PC", 
+        subTag: "科幻联机",
+        forumUrl: "",
+        officialUrl: "https://www.playstation.com/zh-hant-hk/games/helldivers-2/"
+    },
+    { 
+        id: 12, 
+        name: "无畏契约：死锁 (Deadlock)", 
+        icon: "⛓️", 
+        img: "./assets/images/deadlock.png",
+        desc: "V社MOBA+FPS射击神秘新作。", 
+        dev: "Valve", 
+        platform: "PC", 
+        subTag: "英雄射击",
+        forumUrl: "",
+        officialUrl: "https://store.steampowered.com/app/1422450/Deadlock/"  // 暂定链接
+    },
+    { 
+        id: 13, 
+        name: "漫威争锋 (Marvel Rivals)", 
+        icon: "🦸", 
+        img: "./assets/images/marvelrivals.png",
+        desc: "全漫威英雄阵容的第三人称乱斗射击。", 
+        dev: "NetEase", 
+        platform: "PC", 
+        subTag: "英雄射击",
+        forumUrl: "",
+        officialUrl: "https://www.marvelrivals.com/"
+    },
+    { 
+        id: 14, 
+        name: "决赛圈 (The Finals)", 
+        icon: "🏢", 
+        img: "./assets/images/thefinals.png",
+        desc: "场景全可破坏，快节奏偷钱争夺战。", 
+        dev: "Embark Studios", 
+        platform: "PC", 
+        subTag: "竞技射击",
+        forumUrl: "",
+        officialUrl: "https://www.reachthefinals.com/zh"
+    },
+    { 
+        id: 15, 
+        name: "战地 2042", 
+        icon: "✈️", 
+        img: "./assets/images/battlefield2042.png",
+        desc: "好莱坞级大战场，海陆空全面开战。", 
+        dev: "EA", 
+        platform: "PC", 
+        subTag: "大战场",
+        forumUrl: "",
+        officialUrl: "https://www.ea.com/zh-tw/games/battlefield/battlefield-2042"
+    },
+    { 
+        id: 16, 
+        name: "命运 2", 
+        icon: "🌌", 
+        img: "./assets/images/destiny2.png",
+        desc: "宇宙刷子射击，副本机制流天花板。", 
+        dev: "Bungie", 
+        platform: "PC", 
+        subTag: "科幻联机",
+        forumUrl: "",
+        officialUrl: "https://www.bungie.net/"
+    },
+    { 
+        id: 17, 
+        name: "军团要塞 2", 
+        icon: "🎩", 
+        img: "./assets/images/tf2.png",
+        desc: "画风幽默的兵种配合竞技射击始祖。", 
+        dev: "Valve", 
+        platform: "PC", 
+        subTag: "英雄射击",
+        forumUrl: "",
+        officialUrl: "https://www.teamfortress.com/"
+    },
+    { 
+        id: 18, 
+        name: "求生之路 2", 
+        icon: "🧟", 
+        img: "./assets/images/l4d2.png",
+        desc: "联机打僵尸永恒经典，MOD无限生命。", 
+        dev: "Valve", 
+        platform: "PC", 
+        subTag: "科幻联机",
+        forumUrl: "",
+        officialUrl: "https://www.l4d.com/"
+    },
+    { 
+        id: 19, 
+        name: "潜行者 2：切尔诺贝利之心", 
+        icon: "☢️", 
+        img: "./assets/images/stalker2.png",
+        desc: "末日废土，硬核开放世界生存辐射。", 
+        dev: "GSC Game World", 
+        platform: "PC", 
+        subTag: "撤离生存",
+        forumUrl: "",
+        officialUrl: "https://www.stalker2.com/"
+    },
+    { 
+        id: 20, 
+        name: "赛博朋克 2077", 
+        icon: "🦾", 
+        img: "./assets/images/cyberpunk2077.png",
+        desc: "夜之城传奇，单机FPS剧情神作。", 
+        dev: "CDPR", 
+        platform: "PC", 
+        subTag: "单机剧情",
+        forumUrl: "",
+        officialUrl: "https://www.cyberpunk.net/zh-tw/"
+    },
+    { 
+        id: 21, 
+        name: "毁灭战士：永恒", 
+        icon: "🔥", 
+        img: "./assets/images/doometernal.png",
+        desc: "猛男必玩，跟随金属乐手撕恶魔。", 
+        dev: "id Software", 
+        platform: "PC", 
+        subTag: "单机剧情",
+        forumUrl: "",
+        officialUrl: "https://bethesda.net/game/doometernal"
+    },
+    { 
+        id: 22, 
+        name: "光环：无限", 
+        icon: "🧑‍🚀", 
+        img: "./assets/images/haloinfinite.png",
+        desc: "士官长传奇再临，传统竞技场射击。", 
+        dev: "Xbox Game Studios", 
+        platform: "PC", 
+        subTag: "科幻联机",
+        forumUrl: "",
+        officialUrl: "https://www.halowaypoint.com/halo-infinite"
+    },
+    { 
+        id: 23, 
+        name: "泰坦陨落 2", 
+        icon: "🤖", 
+        img: "./assets/images/titanfall2.png",
+        desc: "单人战役关卡设计神作，铁驭驭风而行。", 
+        dev: "Respawn", 
+        platform: "PC", 
+        subTag: "单机剧情",
+        forumUrl: "",
+        officialUrl: "https://www.ea.com/zh-tw/games/titanfall/titanfall-2"
+    },
+    { 
+        id: 24, 
+        name: "收获日 3 (Payday 3)", 
+        icon: "🎭", 
+        img: "./assets/images/payday3.png",
+        desc: "戴上面具，开启战术抢劫联机博弈。", 
+        dev: "Starbreeze", 
+        platform: "PC", 
+        subTag: "科幻联机",
+        forumUrl: "",
+        officialUrl: "https://www.paydaythegame.com/payday3/"
+    },
+    { 
+        id: 25, 
+        name: "腐蚀 (Rust)", 
+        icon: "🪵", 
+        img: "./assets/images/rust.png",
+        desc: "开局一块石头，纯粹残酷的生存射击。", 
+        dev: "Facepunch", 
+        platform: "PC", 
+        subTag: "撤离生存",
+        forumUrl: "",
+        officialUrl: "https://rust.facepunch.com/"
+    },
+    { 
+        id: 26, 
+        name: "猎杀：对决", 
+        icon: "🤠", 
+        img: "./assets/images/huntshowdown.png",
+        desc: "怪异西部魔幻，PvPvE硬核硬核打怪撤离。", 
+        dev: "Crytek", 
+        platform: "PC", 
+        subTag: "撤离生存",
+        forumUrl: "",
+        officialUrl: "https://www.huntshowdown.com/"
+    },
+    { 
+        id: 27, 
+        name: "无主之地 3", 
+        icon: "💎", 
+        img: "./assets/images/borderlands3.png",
+        desc: "美漫疯癫画风，极其爽快的刷枪RPG。", 
+        dev: "Gearbox", 
+        platform: "PC", 
+        subTag: "科幻联机",
+        forumUrl: "",
+        officialUrl: "https://borderlands.com/zh-CN/"
+    },
+    { 
+        id: 28, 
+        name: "灰区作战 (Gray Zone)", 
+        icon: "🌲", 
+        img: "./assets/images/grayzone.png",
+        desc: "主打真实战术调度的丛林拟真射击。", 
+        dev: "MADFINGER", 
+        platform: "PC", 
+        subTag: "撤离生存",
+        forumUrl: "",
+        officialUrl: "https://www.grayzonewarfare.com/"
+    },
+    { 
+        id: 29, 
+        name: "穿越火线 (CF)", 
+        icon: "👑", 
+        img: "./assets/images/cf.png",
+        desc: "国民级经典，三亿鼠标的枪战梦想。", 
+        dev: "Smilegate", 
+        platform: "PC", 
+        subTag: "竞技射击",
+        forumUrl: "",
+        officialUrl: "https://cf.qq.com/"
+    },
+    { 
+        id: 30, 
+        name: "遗迹 2", 
+        icon: "🌳", 
+        img: "./assets/images/remnant2.png",
+        desc: "第三人称魂系射击，随机世界探索。", 
+        dev: "Gunfire Games", 
+        platform: "PC", 
+        subTag: "科幻联机",
+        forumUrl: "",
+        officialUrl: "https://www.remnantgame.com/"
+    },
+
+    // === 手游端 (20款) ===
+    { 
+        id: 31, 
+        name: "和平精英 / PUBG M", 
+        icon: "🍗", 
+        img: "./assets/images/pubgm.png",
+        desc: "国民级反恐军事竞赛体验手游。", 
+        dev: "腾讯光子", 
+        platform: "手游", 
+        subTag: "大逃杀",
+        forumUrl: "",
+        officialUrl: "https://gp.qq.com/"
+    },
+    { 
+        id: 32, 
+        name: "使命召唤手游 (CODM)", 
+        icon: "🎖️", 
+        img: "./assets/images/codm.png",
+        desc: "3A级枪感移植，还原多代经典地图。", 
+        dev: "腾讯天美", 
+        platform: "手游", 
+        subTag: "竞技射击",
+        forumUrl: "",
+        officialUrl: "https://codm.qq.com/"
+    },
+    { 
+        id: 33, 
+        name: "尘白禁区", 
+        icon: "❄️", 
+        img: "./assets/images/snowbreak.png",
+        desc: "轻科幻3D第三人称美少女射击RPG。", 
+        dev: "狸花猫工作室", 
+        platform: "手游", 
+        subTag: "二次元",
+        forumUrl: "",
+        officialUrl: "https://www.cbjq.com/index/"
+    },
+    { 
+        id: 34, 
+        name: "暗区突围手游", 
+        icon: "🎒", 
+        img: "./assets/images/arenabreakout_m.png",
+        desc: "硬核战术撤离，体验纯粹倒卖物资。", 
+        dev: "腾讯魔方", 
+        platform: "手游", 
+        subTag: "撤离生存",
+        forumUrl: "",
+        officialUrl: "https://aqtw.qq.com/"
+    },
+    { 
+        id: 35, 
+        name: "Free Fire (我爱射击)", 
+        icon: "🏝️", 
+        img: "./assets/images/freefire.png",
+        desc: "低配流畅，风靡全球的轻量大逃杀。", 
+        dev: "Garena", 
+        platform: "手游", 
+        subTag: "大逃杀",
+        forumUrl: "",
+        officialUrl: "https://ff.garena.tw/"
+    },
+    { 
+        id: 36, 
+        name: "香肠派对", 
+        icon: "🌭", 
+        img: "./assets/images/sausageparty.png",
+        desc: "外表搞怪硬核核心，生存竞技游戏。", 
+        dev: "心动网络", 
+        platform: "手游", 
+        subTag: "大逃杀",
+        forumUrl: "",
+        officialUrl: "https://www.xd.com/sausage/"
+    },
+    { 
+        id: 37, 
+        name: "高能英雄", 
+        icon: "⚡", 
+        img: "./assets/images/highenergyhero.png",
+        desc: "英雄战术竞技，激爽身法高空突袭。", 
+        dev: "腾讯光子", 
+        platform: "手游", 
+        subTag: "英雄射击",
+        forumUrl: "",
+        officialUrl: "https://hero.qq.com/"
+    },
+    { 
+        id: 38, 
+        name: "荒野行动", 
+        icon: "🚗", 
+        img: "./assets/images/wildlands.png",
+        desc: "经典大逃杀，联动狂魔与多地图体验。", 
+        dev: "网易游戏", 
+        platform: "手游", 
+        subTag: "大逃杀",
+        forumUrl: "",
+        officialUrl: "https://hy.163.com/"
+    },
+    { 
+        id: 39, 
+        name: "胜利女神：妮姬", 
+        icon: "🍑", 
+        img: "./assets/images/nikke.png",
+        desc: "单手操作后坐力战术美少女竖屏射击。", 
+        dev: "Shift Up", 
+        platform: "手游", 
+        subTag: "二次元",
+        forumUrl: "",
+        officialUrl: "https://nikke-en.com/"
+    },
+    { 
+        id: 40, 
+        name: "穿越火线：枪战王者", 
+        icon: "💎", 
+        img: "./assets/images/cfm.png",
+        desc: "完美复刻端游枪感，随时随地个人战。", 
+        dev: "腾讯天美", 
+        platform: "手游", 
+        subTag: "竞技射击",
+        forumUrl: "",
+        officialUrl: "https://cfm.qq.com/"
+    },
+    { 
+        id: 41, 
+        name: "无畏契约手游", 
+        icon: "📱", 
+        img: "./assets/images/valorant_m.png",
+        desc: "移动端英雄爆破竞技，完美适配触控。", 
+        dev: "Riot/腾讯", 
+        platform: "手游", 
+        subTag: "英雄射击",
+        forumUrl: "",
+        officialUrl: "https://val.qq.com/"
+    },
+    { 
+        id: 42, 
+        name: "使命召唤：战区手游", 
+        icon: "🛩️", 
+        img: "./assets/images/warzone_m.png",
+        desc: "真·百人同屏共享端游战区级别进度。", 
+        dev: "Activision", 
+        platform: "手游", 
+        subTag: "大逃杀",
+        forumUrl: "",
+        officialUrl: "https://www.callofduty.com/warzonemobile"
+    },
+    { 
+        id: 43, 
+        name: "彩虹六号手游", 
+        icon: "🧱", 
+        img: "./assets/images/rainbow6_m.png",
+        desc: "手机上的战术攻防，立体破墙体验。", 
+        dev: "Ubisoft", 
+        platform: "手游", 
+        subTag: "战术射击",
+        forumUrl: "",
+        officialUrl: "https://www.ubisoft.com/en-us/game/rainbow-six/mobile"
+    },
+    { 
+        id: 44, 
+        name: "巅峰战舰", 
+        icon: "🚢", 
+        img: "./assets/images/warship.png",
+        desc: "全写实海战TPS，10V10舰队大对决。", 
+        dev: "英雄互娱", 
+        platform: "手游", 
+        subTag: "大战场",
+        forumUrl: "",
+        officialUrl: "https://www.dianfengzhanjian.com/"
+    },
+    { 
+        id: 45, 
+        name: "机动都市阿尔法", 
+        icon: "🤖", 
+        img: "./assets/images/cityalpha.png",
+        desc: "都市动漫风，开着机甲对轰的吃鸡。", 
+        dev: "网易游戏", 
+        platform: "手游", 
+        subTag: "二次元",
+        forumUrl: "",
+        officialUrl: "https://jd.163.com/"
+    },
+    { 
+        id: 46, 
+        name: "王牌战士", 
+        icon: "🎨", 
+        img: "./assets/images/acewarrior.png",
+        desc: "热血动漫风多英雄公平竞技枪战。", 
+        dev: "腾讯天美", 
+        platform: "手游", 
+        subTag: "英雄射击",
+        forumUrl: "",
+        officialUrl: "https://wpzs.qq.com/"
+    },
+    { 
+        id: 47, 
+        name: "血战突击 (Blood Strike)", 
+        icon: "🩸", 
+        img: "./assets/images/bloodstrike.png",
+        desc: "高流畅度Roguelike元素快节奏大逃杀。", 
+        dev: "NetEase", 
+        platform: "手游", 
+        subTag: "大逃杀",
+        forumUrl: "",
+        officialUrl: "https://bloodstrike.163.com/"
+    },
+    { 
+        id: 48, 
+        name: "远光 84 (Farlight 84)", 
+        icon: "🚀", 
+        img: "./assets/images/farlight84.png",
+        desc: "废土赛博朋克，喷气背包满天飞。", 
+        dev: "莉莉丝/Farlight", 
+        platform: "手游", 
+        subTag: "大逃杀",
+        forumUrl: "",
+        officialUrl: "https://www.farlight84.com/"
+    },
+    { 
+        id: 49, 
+        name: "机甲战队 (Mech Arena)", 
+        icon: "🦾", 
+        img: "./assets/images/mecharena.png",
+        desc: "快节奏5v5钢印机甲重火力射击。", 
+        dev: "Plarium", 
+        platform: "手游", 
+        subTag: "科幻联机",
+        forumUrl: "",
+        officialUrl: "https://www.plarium.com/en/game/mech-arena/"
+    },
+    { 
+        id: 50, 
+        name: "前线任务：边界", 
+        icon: "🎖️", 
+        img: "./assets/images/frontmission.png",
+        desc: "近未来写实风机兵战术射击对决。", 
+        dev: "BlackJack Studio", 
+        platform: "手游", 
+        subTag: "二次元",
+        forumUrl: "",
+        officialUrl: "https://frontmission.zlongame.com/"
+    }
+];
+
+// 保底机制：如果页面中某个游戏缺少 forumUrl 或 officialUrl，可以使用这个函数来确保有默认值
+function ensureGameUrls(game) {
+    return {
+        ...game,
+        forumUrl: game.forumUrl || "",      // 留空字符串，由前端处理是否显示按钮
+        officialUrl: game.officialUrl || ""  // 同上
+    };
+}
+
+// 导出（如果是在模块化环境使用）
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { GAMES_DATABASE, ensureGameUrls };
+}

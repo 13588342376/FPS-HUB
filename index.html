@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <script>
+    (function(){var t=localStorage.getItem("fpshub-theme");if(t)document.documentElement.setAttribute("data-theme",t);})();
+  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FPS 玩家集结地 | FPS Hub</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html" style="color: inherit; text-decoration: none;">FPS HUB</a>
+        </div>
+        
+        <ul class="nav-links" style="display: flex; align-items: center; gap: 20px;">
+            <li id="userStatusWidget" style="display: flex; align-items: center; gap: 10px; padding: 5px 10px; background: rgba(255,255,255,0.05); border-radius: 20px;">
+                <span id="widgetAvatar" style="font-size: 18px; line-height: 1;">🐢</span>
+                <span id="widgetUsername" style="color: #ccc; font-size: 14px; font-weight: bold;">未登录</span>
+                <span id="widgetDot" style="width: 8px; height: 8px; background-color: #ff4b2b; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px #ff4b2b;"></span>
+            </li>
+
+            <li><button id="themeToggleBtn" class="theme-toggle-btn" onclick="toggleTheme(); return false;" title="切换主题"><span class="toggle-icon"></span><span class="toggle-label">日间</span></button></li>
+            <li><a href="games.html">游戏库</a></li>
+            <li><a href="news.html">热点讯息</a></li>
+            <li><a href="match.html">组队助手</a></li>
+            
+            <li class="nav-join-container">
+                <a href="join.html" class="nav-join-btn">👥 加入我们</a>
+                
+                <div class="nav-join-submenu">
+                    <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=jXjnaJmZs3zAfgapzyHPp2ZwPc4QVpMNlYr9Yfo%2BTB949tJ5hzfJ44ekNzn6M8ta&busi_data=eyJncm91cENvZGUiOiI3MDMzOTYwMDYiLCJ0b2tlbiI6IjlsbFM5RTBqVzRQOWlpcWo5WTJKZWQyQnJJNkxzL1hSN0FnbUQyYXUrUEw5eThXWmM2a3VFT09YQXBnSmYzNUQiLCJ1aW4iOiIzNjYxNjg2NTkifQ%3D%3D&data=ZD-B5qIyFcmCADhrLnzD6G_YA5h3e3gyh0UAQoWv2PFkTdUh4Z1ByCwwE3GEmBjM2tm8iiduB4C0uLNukjzBGw&svctype=4&tempid=h5_group_info" target="_blank" class="submenu-item qq-item">
+                        <span class="item-icon">💬</span> QQ 交流主群
+                    </a>
+                    <a href="https://t.me/fps_hub1001" target="_blank" class="submenu-item tg-item">
+                        <span class="item-icon">✈️</span> Telegram 频道
+                    </a>
+                    <a href="https://discord.gg/Z62Keahzv" target="_blank" class="submenu-item discord-item">
+                        <span class="item-icon">🎮</span> Discord 社区
+                    </a>
+                    <a href="#" class="submenu-item kook-item">
+                        <span class="item-icon">🎙️</span> KOOK（未开放
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>瞄准，射击，登顶。</h1>
+            <p>这里是硬核 FPS 玩家的避风港。分享你的高光时刻，寻找最强队友。</p>
+            <a href="#" class="btn" id="joinBtn">立即加入社区</a>
+            <a href="#community-join" class="btn btn-browse" id="browseBtn">仅浏览</a>
+        </div>
+    </header>
+<!-- ===== Community Intro ===== -->
+<section class="section-block section-intro">
+    <div class="section-bg-decor" style="background-image: url('./assets/images/hero-bg.png')"></div>
+    <div class="section-content">
+        <h2 class="section-heading">欢迎来到 FPS HUB</h2>
+        <p class="section-desc">
+            FPS HUB 是一个为硬核射击游戏玩家打造的战术集结地。无论你是 CS2 的突破手、
+            Valorant 的控场者，还是 Apex 的生存专家——这里都有你的位置。
+            加入我们，和数千名特工一起分享高光时刻、寻找开黑队友、追踪最新赛事动态。
+        </p>
+        <div class="stats-row">
+            <div class="stat-item">
+                <span class="stat-number" data-target="5000">0</span>
+                <span class="stat-label">活跃特工</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="120">0</span>
+                <span class="stat-label">收录游戏</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="24">0</span>
+                <span class="stat-label">每日开黑场次</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Games ===== -->
+<section class="section-block section-games">
+    <div class="section-bg-decor" style="background-image: url('./assets/images/games-header-bg.png')"></div>
+    <div class="section-content">
+        <h2 class="section-heading">正在流行的战场</h2>
+        <div class="game-grid">
+            
+            <div class="game-card home-game-card" onclick="openPortalModal('CS2', 'https://www.counter-strike.net/cs2', 'forum.html?game=cs2')">
+                <span class="game-card-icon">🔫</span>
+                <h3>CS2</h3>
+                <span class="game-card-tag">硬核竞技</span>
+                <p>硬核竞技的代名词，战术与枪法的巅峰对决。</p>
+            </div>
+            
+            <div class="game-card home-game-card" onclick="openPortalModal('Valorant', 'https://playvalorant.com/', 'forum.html?game=valorant')">
+                <span class="game-card-icon">⚡</span>
+                <h3>Valorant</h3>
+                <span class="game-card-tag">战术射击</span>
+                <p>技能与准星的结合，开创射击游戏新纪元。</p>
+            </div>
+            
+            <div class="game-card home-game-card" onclick="openPortalModal('Apex Legends', 'https://www.ea.com/games/apex-legends', 'forum.html?game=apex')">
+                <span class="game-card-icon">🦾</span>
+                <h3>Apex Legends</h3>
+                <span class="game-card-tag">大逃杀</span>
+                <p>极致的身法与团队配合，在边缘中求生存。</p>
+            </div>
+            
+        </div></div>
+    </div>
+</section>
+
+    <div id="portalModal" class="portal-modal">
+        <div class="portal-box">
+            <h3 id="portalGameName">GAME_TARGET</h3>
+            <p>请选择特工前往的战术分流终端</p>
+            <div class="portal-links">
+                <a id="portalOfficialBtn" href="#" target="_blank" class="cyber-portal-btn official">🚀 进入外部官方网站</a>
+                <a id="portalForumBtn" href="#" target="_blank" class="cyber-portal-btn forum">💬 前往本站分流论坛</a>
+                <button onclick="closePortalModal()" class="portal-cancel">取消传送</button>
+            </div>
+        </div>
+    </div>
+
+<!-- ===== News ===== -->
+<section class="section-block section-news">
+    <div class="section-bg-decor" style="background-image: url('./assets/images/news-header-bg.png')"></div>
+    <div class="section-content">
+        <h2 class="section-heading">情报前线 · 新闻源</h2>
+        <div id="homeNewsGrid" class="home-news-grid"></div>
+        <div style="text-align: center;">
+            <a href="news.html" class="view-more-btn-cyber" style="border-color: #00adb5; color: #00adb5;">进入情报局查阅全部 ➜</a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Team ===== -->
+<section class="section-block section-team">
+    <div class="section-bg-decor" style="background-image: url('./assets/images/match-header-bg.png')"></div>
+    <div class="section-content">
+        <h2 class="section-heading">找寻你的王牌搭档？</h2>
+        <p class="section-desc home-section-desc">别再独自面对寂寞的匹配机制。组队助手模块支持即时战术需求发布，不论是硬核上分还是娱乐开黑，全天候等待特工集结。</p>
+        <div class="tactical-sandbox tactical-grid" style="background: var(--bg-card); border: 1px solid var(--card-border); padding: 35px; border-radius: 12px; margin-bottom: 50px; box-shadow: var(--shadow-sm); max-width: 700px; margin-left: auto; margin-right: auto;">
+            <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 25px;">
+                <button class="sandbox-btn-cyber active" onclick="switchSandboxRole('fragger', this)">💥 突破手</button>
+                <button class="sandbox-btn-cyber" onclick="switchSandboxRole('awper', this)">🎯 狙击手</button>
+                <button class="sandbox-btn-cyber" onclick="switchSandboxRole('igl', this)">🧠 指挥官</button>
+            </div>
+            <div id="sandboxQuote" style="color: #ff4b2b; font-size: 16px; font-weight: bold; min-height: 24px; font-family: monospace; letter-spacing: 1px; text-shadow: 0 0 10px rgba(255,75,43,0.3);">「一马当先，撕裂防线！寻找能跟上我补枪节奏的突击兄弟！」</div>
+        </div>
+        <div style="text-align: center;">
+            <a href="match.html" class="giant-cyber-btn">⚡ 立即呼叫队友组队</a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Join ===== -->
+<section class="section-block section-join">
+    <div class="section-bg-decor" style="background-image: url('./assets/images/join-header-bg.png')"></div>
+    <div class="section-content">
+        <div class="home-join-icon">👥</div>
+        <h2 class="section-heading" style="letter-spacing: 0.1em; margin-bottom: 15px;">星火相传，无限联结</h2>
+        <p class="home-join-subtitle">JOIN THE UNDERGROUND TACTICAL NETWORK</p>
+        <div class="home-join-cards">
+            <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=jXjnaJmZs3zAfgapzyHPp2ZwPc4QVpMNlYr9Yfo%2BTB949tJ5hzfJ44ekNzn6M8ta&busi_data=eyJncm91cENvZGUiOiI3MDMzOTYwMDYiLCJ0b2tlbiI6IjlsbFM5RTBqVzRQOWlpcWo5WTJKZWQyQnJJNkxzL1hSN0FnbUQyYXUrUEw5eThXWmM2a3VFT09YQXBnSmYzNUQiLCJ1aW4iOiIzNjYxNjg2NTkifQ%3D%3D&data=ZD-B5qIyFcmCADhrLnzD6G_YA5h3e3gyh0UAQoWv2PFkTdUh4Z1ByCwwE3GEmBjM2tm8iiduB4C0uLNukjzBGw&svctype=4&tempid=h5_group_info" target="_blank" class="premium-join-card qq-card">
+                <div class="card-icon">💬</div>
+                <h4>QQ 核心群</h4>
+                <p>最接地气的即时闲聊、实时开黑、跨年吹水基地。</p>
+                <span class="action-tag">CONNECT NOW</span>
+            </a>
+            <a href="https://t.me/fps_hub1001" target="_blank" class="premium-join-card tg-card">
+                <div class="card-icon">✈️</div>
+                <h4>Telegram 频道</h4>
+                <p>前沿科技、极客咨询、纯净版本更新的极速发布站。</p>
+                <span class="action-tag">ENTER CHANNEL</span>
+            </a>
+            <a href="https://discord.gg/Z62Keahzv" target="_blank" class="premium-join-card discord-card">
+                <div class="card-icon">🎮</div>
+                <h4>Discord 社区</h4>
+                <p>国际化高音质语音、多频道细分话题沉淀的终极据点。</p>
+                <span class="action-tag">JOIN SERVER</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<footer>
+        <p>&copy; 2026 FPS Hub. 为热爱而生.</p>
+    </footer>
+    
+    <div class="modal-overlay" id="loginModal">
+        <div class="login-box">
+            <span class="close-btn" id="closeModal">&times;</span>
+            <h2>玩家登录</h2>
+            <form id="loginForm" onsubmit="return false;">
+                <div class="input-group">
+                    <label>电子邮箱 / 玩家ID</label>
+                    <input type="text" placeholder="输入你的战网凭证..." required>
+                </div>
+                <div class="input-group">
+                    <label>安全密码</label>
+                    <input type="password" placeholder="输入密码..." required>
+                </div>
+
+                <div class="captcha-container">
+                    <div class="captcha-track" id="captchaTrack">
+                        <span id="captchaText">向右滑动解锁战术终端</span>
+                        <div class="captcha-slider" id="captchaSlider">&gt;&gt;</div>
+                    </div>
+                </div>
+
+                <div class="form-links">
+                    <a href="#" onclick="alert('本地演示：重置密码邮件已发送（模拟）')">忘记密码？</a>
+                    <a href="#" onclick="showCuteRegisterModal(); return false;">没有账户？立即注册</a>
+                </div>
+
+                <button type="submit" class="submit-btn" id="loginSubmitBtn" disabled style="opacity: 0.5; cursor: not-allowed;">进入避风港</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="./assets/js/games-data.js"></script>
+    <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/home-agent.js"></script>
+</body>
+</html>

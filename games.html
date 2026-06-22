@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- Prevent FOUC: set theme before first paint -->
+  <script>
+    (function(){
+      var t = localStorage.getItem('fpshub-theme');
+      if (t) document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/jpeg" href="./assets/images/favicon.jpg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>游戏库中心 | FPS Hub</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html" style="color: inherit; text-decoration: none;">FPS HUB</a>
+        </div>
+        
+        <ul class="nav-links">
+            <li id="userStatusWidget" style="display: flex; align-items: center; gap: 10px; padding: 5px 10px; background: rgba(255,255,255,0.05); border-radius: 20px;">
+                <span id="widgetAvatar" style="font-size: 18px; line-height: 1;">🐢</span>
+                <span id="widgetUsername" style="color: #ccc; font-size: 14px; font-weight: bold;">未登录</span>
+                <span id="widgetDot" style="width: 8px; height: 8px; background-color: #ff4b2b; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px #ff4b2b;"></span>
+            </li>
+            <li><button id="themeToggleBtn" class="theme-toggle-btn" onclick="toggleTheme(); return false;" title="切换主题"><span class="toggle-icon"></span><span class="toggle-label">??</span></button></li>
+
+            <li><a href="games.html" style="color: #ff4b2b; font-weight: bold;">游戏库</a></li>
+            <li><a href="news.html">热点讯息</a></li>
+            <li><a href="match.html">组队助手</a></li>
+            
+            <li class="nav-join-container">
+                <a href="join.html" class="nav-join-btn">👥 加入我们</a>
+                
+                <div class="nav-join-submenu">
+                    <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=jXjnaJmZs3zAfgapzyHPp2ZwPc4QVpMNlYr9Yfo%2BTB949tJ5hzfJ44ekNzn6M8ta&busi_data=eyJncm91cENvZGUiOiI3MDMzOTYwMDYiLCJ0b2tlbiI6IjlsbFM5RTBqVzRQOWlpcWo5WTJKZWQyQnJJNkxzL1hSN0FnbUQyYXUrUEw5eThXWmM2a3VFT09YQXBnSmYzNUQiLCJ1aW4iOiIzNjYxNjg2NTkifQ%3D%3D&data=ZD-B5qIyFcmCADhrLnzD6G_YA5h3e3gyh0UAQoWv2PFkTdUh4Z1ByCwwE3GEmBjM2tm8iiduB4C0uLNukjzBGw&svctype=4&tempid=h5_group_info" target="_blank" class="submenu-item qq-item">
+                        <span class="item-icon">💬</span> QQ 交流主群
+                    </a>
+
+                    <a href="https://t.me/fps_hub1001" target="_blank" class="submenu-item tg-item">
+                         <span class="item-icon">✈️</span> Telegram 频道
+                    </a>
+
+                    <a href="https://discord.gg/Z62Keahzv" target="_blank" class="submenu-item discord-item">
+                        <span class="item-icon">🎮</span> Discord 社区
+                    </a>
+
+                    <a href="#" target="_blank" class="submenu-item kook-item">
+                        <span class="item-icon">🎙️</span> KOOK （未开放
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div style="height: 280px; margin-top: 56px; background: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.55)), url('./assets/images/games-header-bg.png'); background-size: cover; background-position: center; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+        <h1 style="color: #fff; font-size: 32px; letter-spacing: 2px; font-weight: 700; text-shadow: 0 2px 12px rgba(0,0,0,0.4); margin-bottom: 8px;">全能战术武器库</h1>
+        <p style="color: rgba(255,255,255,0.8); font-size: 14px; max-width: 600px; line-height: 1.6;">
+            💡 <span style="color: #ff4b2b; font-weight: bold;">战术提示：</span>鼠标在卡片上稳固悬停 <span style="color: #00adb5; font-weight: bold;">0.8 秒</span>，即可解锁直达官方网站的隐秘通道。
+        </p>
+    </div>
+
+    <div class="filter-panel">
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="搜索战场（如：CS2, Apex...）">
+            <span class="clear-search" id="clearSearch">&times;</span>
+        </div>
+
+        <div class="main-tags">
+            <button class="tag-btn active" data-type="all">全部平台</button>
+            <button class="tag-btn" data-type="PC">PC 端</button>
+            <button class="tag-btn" data-type="手游">手游端</button>
+        </div>
+
+        <div class="sub-tags" id="subTagContainer"></div>
+    </div>
+
+    <section class="games-library">
+        <div class="library-grid" id="libraryGrid"></div>
+        <div class="no-results" id="noResults">🚫 抱歉，军械库暂未收录该战场</div>
+    </section>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/games-data.js"></script>
+    <script src="./assets/js/games.js"></script>
+</body>
+</html>

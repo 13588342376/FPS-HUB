@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/jpeg" href="./assets/images/favicon.jpg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FPS 论坛 | FPS Hub</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <style>
+        .forum-wrapper { max-width: 1100px; margin: 80px auto 40px; padding: 0 20px; }
+        .forum-header { text-align: center; padding: 40px 0 50px; }
+        .forum-header .game-icon { font-size: 48px; margin-bottom: 12px; }
+        .forum-header h1 { font-size: 32px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
+        .forum-header p { color: var(--text-secondary); font-size: 14px; }
+        .forum-stats { display: flex; justify-content: center; gap: 40px; margin-top: 20px; }
+        .forum-stats span { font-size: 13px; color: var(--text-tertiary); }
+        .forum-stats strong { color: var(--accent); font-weight: 600; }
+
+        .forum-categories { display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
+        .category-card { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 12px; padding: 20px 24px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: space-between; }
+        .category-card:hover { border-color: var(--accent); box-shadow: var(--shadow-sm); transform: translateY(-2px); }
+        .category-left { display: flex; align-items: center; gap: 16px; }
+        .category-icon { font-size: 24px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: var(--tag-bg); border-radius: 10px; }
+        .category-info h3 { font-size: 15px; font-weight: 600; color: var(--text-primary); margin: 0 0 4px; }
+        .category-info p { font-size: 12px; color: var(--text-tertiary); margin: 0; }
+        .category-meta { text-align: right; font-size: 12px; color: var(--text-tertiary); }
+        .category-meta .count { display: block; font-weight: 600; color: var(--text-secondary); }
+
+        .topic-list { display: flex; flex-direction: column; gap: 10px; }
+        .topic-row { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 10px; padding: 16px 20px; transition: all 0.2s ease; cursor: pointer; }
+        .topic-row:hover { border-color: var(--accent); box-shadow: var(--shadow-sm); }
+        .topic-title { font-size: 14px; font-weight: 600; color: var(--text-primary); margin: 0 0 6px; }
+        .topic-meta { display: flex; gap: 16px; font-size: 12px; color: var(--text-tertiary); }
+        .topic-meta .author { color: var(--accent); }
+        .topic-meta .tag { background: var(--tag-bg); padding: 2px 8px; border-radius: 4px; color: var(--text-secondary); font-size: 11px; }
+
+        .forum-sidebar { font-size: 13px; color: var(--text-secondary); line-height: 1.8; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px; color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 500; }
+        .back-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo"><a href="index.html">FPS HUB</a></div>
+        <ul class="nav-links">
+            <li id="userStatusWidget" style="display:flex;align-items:center;gap:8px;padding:4px 12px;background:var(--tag-bg);border-radius:20px;border:1px solid var(--tag-border);cursor:pointer;font-size:13px;">
+                <span id="widgetAvatar" style="font-size:16px;line-height:1;">??</span>
+                <span id="widgetUsername" style="font-size:12px;font-weight:600;color:var(--text-secondary);">未登录</span>
+                <span id="widgetDot" style="width:7px;height:7px;background-color:#ff4b2b;border-radius:50%;display:inline-block;box-shadow:0 0 8px #ff4b2b;"></span>
+            </li>
+            <li><button id="themeToggleBtn" class="theme-toggle-btn" onclick="toggleTheme();return false;" title="切换主题"><span class="toggle-icon">??</span><span class="toggle-label">??</span></button></li>
+            <li><a href="games.html">游戏库</a></li>
+            <li><a href="news.html">热点讯息</a></li>
+            <li><a href="match.html">组队助手</a></li>
+            <li class="nav-join-container">
+                <a href="join.html" class="nav-join-btn">👥 加入我们</a>
+                <div class="nav-join-submenu">
+                    <a href="https://qun.qq.com/..." target="_blank" class="submenu-item qq-item"><span class="item-icon">💰</span> QQ 交流主群</a>
+                    <a href="https://t.me/fps_hub1001" target="_blank" class="submenu-item tg-item"><span class="item-icon">✨️</span> Telegram 频道</a>
+                    <a href="https://discord.gg/Z62Keahzv" target="_blank" class="submenu-item discord-item"><span class="item-icon">🏃</span> Discord 社区</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="forum-wrapper">
+        <a href="games.html" class="back-link">← 返回游戏库</a>
+        <div class="forum-header" id="forumHeader">
+            <div class="game-icon" id="gameIcon">??</div>
+            <h1 id="gameTitle">????</h1>
+            <p id="gameDesc">FPS Hub ???????</p>
+            <div class="forum-stats">
+                <span>帖子: <strong id="topicCount">-</strong></span>
+                <span>回复: <strong id="postCount">-</strong></span>
+                <span>在线: <strong id="onlineCount">-</strong></span>
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 20px;"><button id="forumNewPostBtn" class="btn" style="padding: 10px 24px; font-size: 13px;" onclick="document.getElementById('forumPostMock').style.display='block'; this.style.display='none';">📝 发起新帖</button></div><div id="forumPostMock" style="display: none; background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 12px; padding: 24px; margin-bottom: 24px;"><h3 style="font-size: 16px; margin: 0 0 16px; color: var(--text-primary);">✏️ 发起新帖</h3><input type="text" placeholder="帖子标题..." style="width: 100%; padding: 12px; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: 8px; color: var(--input-text); margin-bottom: 12px; box-sizing: border-box;"><textarea placeholder="帖子内容..." rows="4" style="width: 100%; padding: 12px; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: 8px; color: var(--input-text); resize: vertical; margin-bottom: 12px; box-sizing: border-box;"></textarea><div style="display: flex; gap: 10px; justify-content: flex-end;"><button onclick="document.getElementById('forumPostMock').style.display='none'; document.getElementById('forumNewPostBtn').style.display=''" style="padding: 8px 18px; background: transparent; border: 1px solid var(--border); border-radius: 8px; color: var(--text-secondary); cursor: pointer;">取消</button><button onclick="alert('✅ 演示模式：帖子已发布（本地模拟）'); document.getElementById('forumPostMock').style.display='none'; document.getElementById('forumNewPostBtn').style.display=''" style="padding: 8px 18px; background: var(--accent); border: none; border-radius: 8px; color: #fff; cursor: pointer;">发布</button></div></div>
+        <div id="forumContent"></div>
+    </div>
+
+    <footer><p>&copy; 2026 FPS Hub. 为热爱而生.</p></footer>
+
+    <script src="./assets/js/main.js"></script>
+    <script>
+                const GAME_DATA = {
+            cs2: {
+                name: "反恐精英 2 (CS2)", icon: "🔫", emoji: "🎯",
+                desc: "全球最畅销的硬核竞技射击游戏，战术与枪法的巅峰对决。",
+                topics: 1842, posts: 12850, online: 376,
+                categories: [
+                    { icon: "💣", name: "战术讨论", desc: "CS2 地图走位、道具投掷与战术体系", threads: 628, iconBg: "#ff4b2b" },
+                    { icon: "🎯", name: "枪法交流", desc: "压枪控弹、预瞄定位与身法提升", threads: 423, iconBg: "#0071e3" },
+                    { icon: "🏆", name: "赛事专区", desc: "Major、IEM 等职业赛事讨论与 Meta 分析", threads: 215, iconBg: "#34c759" },
+                    { icon: "🎨", name: "创意工坊", desc: "皮肤鉴赏 / 地图投稿与 MOD 分享", threads: 386, iconBg: "#5856d6" }
+                ],
+                recentTopics: [
+                    { title: "Mirage 中路控制新套路，这套烟闪组合绝了", author: "突破手小林", replies: 24, time: "5 分钟前", tag: "攻略", url: "#" },
+                    { title: "M4A4 还是 M4A1-S？职业哥的选择分析", author: "枪械分析师", replies: 38, time: "12 分钟前", tag: "讨论", url: "#" },
+                    { title: "IEM 成都 2026 观赛讨论帖", author: "Major 情报员", replies: 156, time: "1 小时前", tag: "赛事", url: "#" },
+                    { title: "5E 优先匹配遇到瓶颈了，求突破思路", author: "挣扎小黄金", replies: 45, time: "2 小时前", tag: "求助", url: "#" },
+                    { title: "Dust2 新版本改了哪些？老玩家回归指南", author: "老兵回归", replies: 19, time: "3 小时前", tag: "综合", url: "#" }
+                ]
+            },
+            valorant: {
+                name: "无畏契约 (Valorant)", icon: "🗡", emoji: "🔮",
+                desc: "技能与枪法完美结合的战术竞技射击游戏。",
+                topics: 2156, posts: 15680, online: 523,
+                categories: [
+                    { icon: "🔫", name: "英雄攻略", desc: "Valorant 英雄技能连招与对位克制", threads: 745, iconBg: "#ff4b2b" },
+                    { icon: "💡", name: "意识教学", desc: "经济运营、地图控制与残局处理", threads: 512, iconBg: "#0071e3" },
+                    { icon: "🏅", name: "赛事竞猜", desc: "VCT 各大赛区战况与冠军赛预测", threads: 324, iconBg: "#ffd700" },
+                    { icon: "🎭", name: "娱乐闲聊", desc: "开黑组队 / 日常趣事与段子分享", threads: 467, iconBg: "#5856d6" }
+                ],
+                recentTopics: [
+                    { title: "新英雄「灵光」技能深度解析与实战连招", author: "攻略大师", replies: 42, time: "8 分钟前", tag: "攻略", url: "#" },
+                    { title: "冠军赛 EDG 对阵 TH 这场看傻了", author: "CN 粉丝", replies: 89, time: "20 分钟前", tag: "赛事", url: "#" },
+                    { title: "Phantom 还是 Vandal？版本答案究竟是什么", author: "枪械测试员", replies: 34, time: "1 小时前", tag: "讨论", url: "#" },
+                    { title: "2026 新地图「裂隙」点位报点全攻略", author: "地图大师", replies: 27, time: "2 小时前", tag: "攻略", url: "#" },
+                    { title: "单排上神话了，分享一些上分小心得", author: "单排战士", replies: 112, time: "3 小时前", tag: "分享", url: "#" }
+                ]
+            },
+            apex: {
+                name: "Apex 英雄", icon: "⚡", emoji: "🏆",
+                desc: "快节奏大逃杀，极致身法与团队配合的完美结合。",
+                topics: 1689, posts: 11450, online: 412,
+                categories: [
+                    { icon: "⚡", name: "传奇攻略", desc: "Apex 传奇技能搭配与阵容组合", threads: 534, iconBg: "#ff4b2b" },
+                    { icon: "🎯", name: "枪械评测", desc: "版本武器强度排行与配件推荐", threads: 387, iconBg: "#0071e3" },
+                    { icon: "🛡", name: "身法课堂", desc: "滑铲跳、蹬墙跳等进阶身法教学", threads: 298, iconBg: "#34c759" },
+                    { icon: "🎮", name: "开黑专区", desc: "找队友 / 段位冲刺与娱乐匹配", threads: 412, iconBg: "#5856d6" }
+                ],
+                recentTopics: [
+                    { title: "第 25 赛季通行证值得买吗？奖励全览", author: "通行证达人", replies: 67, time: "3 分钟前", tag: "综合", url: "#" },
+                    { title: "排位被炸鱼了怎么办？上分避坑指南", author: "受害者联盟", replies: 128, time: "15 分钟前", tag: "求助", url: "#" },
+                    { title: "R-99 还是 CAR？SMG 版本答案之争", author: "枪械控", replies: 43, time: "40 分钟前", tag: "讨论", url: "#" },
+                    { title: "新传奇「风暴」技能爆料 + 实战评测", author: "情报特工", replies: 31, time: "1 小时前", tag: "攻略", url: "#" },
+                    { title: "三排固定车队招募，钻石以上来", author: "车队队长", replies: 22, time: "3 小时前", tag: "组队", url: "#" }
+                ]
+            }
+        };
+
+        function getGameParam() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get("game") || "cs2";
+        }
+
+        function loadForum() {
+            const gameKey = getGameParam();
+            const data = GAME_DATA[gameKey] || GAME_DATA["cs2"];
+
+            document.getElementById("gameIcon").textContent = data.icon;
+            document.getElementById("gameTitle").textContent = `${data.emoji} ${data.name} 本站论坛`;
+            document.getElementById("gameDesc").textContent = data.desc;
+            document.getElementById("topicCount").textContent = data.topics.toLocaleString();
+            document.getElementById("postCount").textContent = data.posts.toLocaleString();
+            document.getElementById("onlineCount").textContent = data.online;
+
+            const container = document.getElementById("forumContent");
+            let html = "<h2 style='font-size:18px;font-weight:600;margin-bottom:16px;color:var(--text-primary);'>📂 论坛板块</h2>";
+            html += '<div class="forum-categories">';
+            data.categories.forEach(cat => {
+                html += `<div class="category-card">
+                    <div class="category-left">
+                        <div class="category-icon" style="background:${cat.iconBg}20;color:${cat.iconBg}">${cat.icon}</div>
+                        <div class="category-info"><h3>${cat.name}</h3><p>${cat.desc}</p></div>
+                    </div>
+                    <div class="category-meta"><span class="count">${cat.threads}</span>篇</div>
+                </div>`;
+            });
+            html += "</div>";
+
+            html += "<h2 style='font-size:18px;font-weight:600;margin:30px 0 16px;color:var(--text-primary);'>📜 最新帖子</h2>";
+            html += '<div class="topic-list">';
+            data.recentTopics.forEach(topic => {
+                html += `<div class="topic-row" onclick="window.open('${topic.url}','_blank')">
+                    <h4 class="topic-title">${topic.title}</h4>
+                    <div class="topic-meta">
+                        <span class="author">👤 ${topic.author}</span>
+                        <span>💬 ${topic.replies} 回复</span>
+                        <span>🕐 ${topic.time}</span>
+                        <span class="tag">${topic.tag}</span>
+                    </div>
+                </div>`;
+            });
+            html += "</div>";
+
+            html += '<div style="background:var(--bg-tertiary);border-radius:12px;padding:30px;text-align:center;margin-top:30px;">';
+            html += '<p style="color:var(--text-secondary);font-size:14px;margin-bottom:16px;">还没找到开黑伙伴？加入社区一起玩吧！</p>';
+            html += '<a href="join.html" class="btn" style="display:inline-block;margin-top:0;">加入社区找队友 👉</a>';
+            html += "</div>";
+
+            container.innerHTML = html;
+        }
+
+        document.addEventListener("DOMContentLoaded", loadForum);
+    </script>
+</body>
+</html>
